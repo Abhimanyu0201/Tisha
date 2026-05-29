@@ -58,7 +58,9 @@ body {
   position: fixed;
   inset: 0;
   z-index: 0;
-  background: url('https://tishportfolio.netlify.app/img6203-web.jpg') center/cover no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   opacity: 0;
   will-change: opacity;
   pointer-events: none;
@@ -186,7 +188,9 @@ footer {
   min-height: 100vh;
   position: relative;
   overflow: hidden;
-  background: url('https://tishportfolio.netlify.app/IMG_6224.png') center bottom/cover no-repeat;
+  background-position: center bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;

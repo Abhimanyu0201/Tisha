@@ -1,27 +1,43 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
+import img2131 from './Photo/IMG_2131.webp'
+import img2657 from './Photo/IMG_2657.webp'
+import img3003 from './Photo/IMG_3003.webp'
+import img4669 from './Photo/IMG_4669.webp'
+import img6591 from './Photo/IMG_6591.webp'
+
+const photos = [img2131, img2657, img3003, img4669, img6591]
+const photo = (i) => photos[i % photos.length]
 
 const interestCards = [
-  { src: 'https://tishportfolio.netlify.app/IMG_1268.png', label: 'COMP SCI' },
-  { src: 'https://tishportfolio.netlify.app/IMG_6116.png', label: 'BOOKS' },
-  { src: 'https://tishportfolio.netlify.app/IMG_4615.jpg', label: 'CAFES' },
-  { src: 'https://tishportfolio.netlify.app/IMG_0044.png', label: 'DATA' },
-  { src: 'https://tishportfolio.netlify.app/IMG_1696.png', label: 'CONTENT' },
+  { src: photo(0), label: 'SOCIAL MEDIA' },
+  { src: photo(1), label: 'BRAND STRATEGY' },
+  { src: photo(2), label: 'META ADS' },
+  { src: photo(3), label: 'CONTENT' },
+  { src: photo(4), label: 'INFLUENCER' },
 ]
 
-const foodPlates = [
-  { src: 'https://tishportfolio.netlify.app/food1-nobg.png', label: 'Food 1', size: 'lg', tx: '385px', ty: '-62px', rot: '7deg', idx: 'R1' },
-  { src: 'https://tishportfolio.netlify.app/food2-nobg.png', label: 'Food 2', size: 'sm', tx: '502px', ty: '-108px', rot: '-14deg', idx: 'R2' },
-  { src: 'https://tishportfolio.netlify.app/food3-nobg.png', label: 'Food 3', size: 'lg', tx: '418px', ty: '-158px', rot: '19deg', idx: 'R3' },
-  { src: 'https://tishportfolio.netlify.app/food4-nobg.png', label: 'Food 4', size: 'sm', tx: '495px', ty: '-210px', rot: '-6deg', idx: 'R4' },
-  { src: 'https://tishportfolio.netlify.app/food6-nobg.png', label: 'Food 5', size: 'lg', tx: '400px', ty: '-260px', rot: '12deg', idx: 'R5' },
-  { src: 'https://tishportfolio.netlify.app/food7-nobg.png', label: 'Food 6', size: 'sm', tx: '488px', ty: '-302px', rot: '-10deg', idx: 'R6' },
+const brandPlates = [
+  { src: photo(0), label: 'Skoda', size: 'lg', tx: '385px', ty: '-62px', rot: '7deg', idx: 'R1' },
+  { src: photo(1), label: 'Nykaa Luxe', size: 'sm', tx: '502px', ty: '-108px', rot: '-14deg', idx: 'R2' },
+  { src: photo(2), label: 'Meta Ads', size: 'lg', tx: '418px', ty: '-158px', rot: '19deg', idx: 'R3' },
+  { src: photo(3), label: 'Google Ads', size: 'sm', tx: '495px', ty: '-210px', rot: '-6deg', idx: 'R4' },
+  { src: photo(4), label: 'Scribbld', size: 'lg', tx: '400px', ty: '-260px', rot: '12deg', idx: 'R5' },
+  { src: photo(0), label: 'Saatchi', size: 'sm', tx: '488px', ty: '-302px', rot: '-10deg', idx: 'R6' },
 ]
 
 const polaroids = [
-  { src: 'https://tishportfolio.netlify.app/IMG_3326.png', caption: 'Workout', rot: '-5deg', delay: '0s', position: 'center bottom' },
-  { src: 'https://tishportfolio.netlify.app/IMG_5777.jpg', caption: 'Fit check', rot: '2deg', delay: '0.12s' },
-  { src: 'https://tishportfolio.netlify.app/IMG_4391.jpg', caption: 'Lake nights', rot: '-2deg', delay: '0.24s' },
-  { src: 'https://tishportfolio.netlify.app/FullSizeRender.jpg', caption: 'Golden hour', rot: '5deg', delay: '0.36s' },
+  { src: photo(0), caption: 'Agency life', rot: '-5deg', delay: '0s', position: 'center bottom' },
+  { src: photo(1), caption: 'Nykaa Luxe', rot: '2deg', delay: '0.12s' },
+  { src: photo(2), caption: 'Skoda campaigns', rot: '-2deg', delay: '0.24s' },
+  { src: photo(3), caption: 'Surat, Gujarat', rot: '5deg', delay: '0.36s' },
+]
+
+const workProjects = [
+  { cat: 'Independent · Surat', title: 'Founder — Digital Marketing Consultant', period: 'Feb 2025 – Apr 2026' },
+  { cat: 'Scribbld India', title: 'Brand Solutions Executive — Nykaa Luxe', period: 'Dec 2024 – Feb 2025' },
+  { cat: 'Saatchi & Saatchi Propagate', title: 'Brand Associate — Skoda', period: 'Jul 2024 – Nov 2024' },
+  { cat: 'Paid Media', title: 'Meta Ads — Reach & Conversions', period: 'Campaign performance' },
+  { cat: 'Brand Building', title: 'Luxury & Automotive Strategy', period: 'End-to-end digital' },
 ]
 
 function App() {
@@ -219,7 +235,7 @@ function App() {
   return (
     <>
       <nav className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center py-6 px-6 md:px-12 backdrop-blur-[2px] bg-linear-to-b from-[#091e2d]/25 to-transparent">
-        <span className="nav-name text-[11px] font-mono tracking-[3px] text-ink-soft uppercase opacity-0 animate-[fadeIn_0.8s_0.3s_forwards]">Tisha Bando</span>
+        <span className="nav-name text-[11px] font-mono tracking-[3px] text-ink-soft uppercase opacity-0 animate-[fadeIn_0.8s_0.3s_forwards]">Khushali Bochiwal</span>
         <div className={`nav-links flex gap-8 max-md:fixed max-md:top-0 max-md:w-[min(72vw,280px)] max-md:h-dvh max-md:bg-ink max-md:flex-col max-md:justify-center max-md:items-start max-md:py-16 max-md:px-10 max-md:gap-9 max-md:transition-all max-md:duration-[380ms] max-md:ease-out max-md:z-[150] max-md:shadow-[-14px_0_48px_rgba(0,0,0,0.5)] ${isMobileMenuOpen ? 'max-md:right-0' : 'max-md:right-[-100%]'}`} id="navLinks">
           <a href="#about" className="font-mono text-[10px] tracking-[2px] text-muted uppercase hover:text-accent max-md:text-[13px] max-md:tracking-[3px] max-md:text-white/72 max-md:opacity-100 max-md:animate-none" onClick={() => setIsMobileMenuOpen(false)}>About</a>
           <a href="#work" className="font-mono text-[10px] tracking-[2px] text-muted uppercase hover:text-accent max-md:text-[13px] max-md:tracking-[3px] max-md:text-white/72 max-md:opacity-100 max-md:animate-none" onClick={() => setIsMobileMenuOpen(false)}>Work</a>
@@ -240,31 +256,38 @@ function App() {
       <div className={`nav-backdrop fixed inset-0 z-[140] bg-black/48 transition-all duration-300 md:hidden ${isMobileMenuOpen ? 'block' : 'hidden'}`} id="navBackdrop" onClick={() => setIsMobileMenuOpen(false)}></div>
 
       {/* Hero background image */}
-      <div id="bg-img6203"></div>
+      <div
+        id="bg-img6203"
+        style={{ backgroundImage: `url(${photo(0)})` }}
+      />
 
       {/* HERO */}
-      <div className="hero min-h-screen relative overflow-hidden flex items-center justify-center" id="hero">
+      <div
+        className="hero min-h-screen relative overflow-hidden flex items-center justify-center"
+        id="hero"
+        style={{ backgroundImage: `url(${photo(1)})` }}
+      >
         {/* Rising photo frames */}
         <div className="hero-frames">
           <div className="hero-frame-col" data-speed="0.28" style={{ left: '1%', top: '6vh', width: '13vw', zIndex: 1 }}>
-            <div className="hero-frame"><img src="https://tishportfolio.netlify.app/IMG_1533.jpg" alt="" /></div>
-            <div className="hero-frame"><img src="https://tishportfolio.netlify.app/IMG_3871.png" alt="" /></div>
+            <div className="hero-frame"><img src={photo(0)} alt="" /></div>
+            <div className="hero-frame"><img src={photo(1)} alt="" /></div>
           </div>
           <div className="hero-frame-col" data-speed="0.52" style={{ left: '16%', top: '44vh', width: '10vw', zIndex: 3 }}>
-            <div className="hero-frame"><img src="https://tishportfolio.netlify.app/IMG_4098.png" alt="" /></div>
+            <div className="hero-frame"><img src={photo(2)} alt="" /></div>
           </div>
           <div className="hero-frame-col" data-speed="0.44" style={{ right: '15%', top: '26vh', width: '10vw', zIndex: 3 }}>
-            <div className="hero-frame"><img src="https://tishportfolio.netlify.app/IMG_5727.png" alt="" /></div>
+            <div className="hero-frame"><img src={photo(3)} alt="" /></div>
           </div>
           <div className="hero-frame-col" data-speed="0.22" style={{ right: '1%', top: '10vh', width: '13vw', zIndex: 1 }}>
-            <div className="hero-frame"><img src="https://tishportfolio.netlify.app/FullSizeRender.jpg" alt="" /></div>
-            <div className="hero-frame"><img src="https://tishportfolio.netlify.app/IMG_5695.jpg" alt="" /></div>
+            <div className="hero-frame"><img src={photo(4)} alt="" /></div>
+            <div className="hero-frame"><img src={photo(0)} alt="" /></div>
           </div>
           <div className="hero-frame-col" data-speed="0.82" style={{ left: '7%', top: '78vh', width: '11vw', zIndex: 1 }}>
-            <div className="hero-frame"><img src="https://tishportfolio.netlify.app/IMG_4391.jpg" alt="" /></div>
+            <div className="hero-frame"><img src={photo(1)} alt="" /></div>
           </div>
           <div className="hero-frame-col" data-speed="0.72" style={{ right: '7%', top: '72vh', width: '11vw', zIndex: 1 }}>
-            <div className="hero-frame"><img src="https://tishportfolio.netlify.app/IMG_5128.png" alt="" /></div>
+            <div className="hero-frame"><img src={photo(2)} alt="" /></div>
           </div>
         </div>
 
@@ -272,8 +295,8 @@ function App() {
         <div className="hero-content relative z-10 flex flex-col items-center text-center px-5 pointer-events-auto">
           <div className="hero-tag text-[9px] font-mono tracking-[4px] text-white/60 uppercase mb-5 opacity-0 animate-[slideUp_0.7s_0.3s_forwards]">Portfolio — 2026</div>
           <p className="hero-greeting text-[11px] font-mono tracking-[5px] text-white/75 uppercase mb-[2px] opacity-0 animate-[slideUp_0.7s_0.35s_forwards]">Hi, I'm</p>
-          <h1 className="hero-name font-display font-bold italic text-[clamp(110px,17vw,218px)] max-md:text-[clamp(72px,18vw,120px)] max-sm:text-[clamp(62px,20vw,96px)] leading-[0.84] tracking-[-4px] max-md:tracking-[-2px] mb-[26px] text-white opacity-0 animate-[slideUp_1.1s_0.1s_forwards] drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">Tisha</h1>
-          <div className="hero-sub text-[10px] font-mono tracking-[3px] text-white/80 uppercase mb-7 leading-[1.9] opacity-0 animate-[slideUp_0.7s_0.5s_forwards]">Creator &nbsp;·&nbsp; Model &nbsp;·&nbsp; CS Student &nbsp;·&nbsp; 21</div>
+          <h1 className="hero-name font-display font-bold italic text-[clamp(72px,14vw,180px)] max-md:text-[clamp(52px,16vw,100px)] max-sm:text-[clamp(44px,18vw,80px)] leading-[0.84] tracking-[-4px] max-md:tracking-[-2px] mb-[26px] text-white opacity-0 animate-[slideUp_1.1s_0.1s_forwards] drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">Khushali</h1>
+          <div className="hero-sub text-[10px] font-mono tracking-[3px] text-white/80 uppercase mb-7 leading-[1.9] opacity-0 animate-[slideUp_0.7s_0.5s_forwards]">Digital Marketer &nbsp;·&nbsp; Social Media &nbsp;·&nbsp; Brand Strategy &nbsp;·&nbsp; Surat</div>
           <div className="hero-cta flex gap-4 items-center max-sm:flex-col opacity-0 animate-[slideUp_0.7s_0.8s_forwards]">
             <a href="#work" className="btn-primary bg-ink text-warm-white py-[13px] px-[30px] font-mono text-[10px] tracking-[2px] uppercase border border-ink hover:bg-accent-mid hover:border-accent-mid transition-all duration-250">View Work</a>
             <a href="#contact" className="btn-ghost text-white/85 font-mono text-[10px] tracking-[2px] uppercase border-b border-white/40 pb-[2px] hover:text-white hover:border-white transition-all duration-200">Let's Talk →</a>
@@ -290,23 +313,23 @@ function App() {
       {/* MARQUEE */}
       <div className="marquee-wrap bg-ink py-4 overflow-hidden whitespace-nowrap">
         <div className="marquee-inner">
-          <span className="marquee-item font-mono text-[10px] tracking-[3px] text-[#3a607a] uppercase">Aspiring Model</span>
+          <span className="marquee-item font-mono text-[10px] tracking-[3px] text-[#3a607a] uppercase">Digital Marketer</span>
           <span className="marquee-dot text-accent">✦</span>
-          <span className="marquee-item font-mono text-[10px] tracking-[3px] text-[#3a607a] uppercase">Content Creator</span>
+          <span className="marquee-item font-mono text-[10px] tracking-[3px] text-[#3a607a] uppercase">Social Media Marketing</span>
           <span className="marquee-dot text-accent">✦</span>
-          <span className="marquee-item font-mono text-[10px] tracking-[3px] text-[#3a607a] uppercase">CS at Queen's University</span>
+          <span className="marquee-item font-mono text-[10px] tracking-[3px] text-[#3a607a] uppercase">Skoda & Nykaa Luxe</span>
           <span className="marquee-dot text-accent">✦</span>
-          <span className="marquee-item font-mono text-[10px] tracking-[3px] text-[#3a607a] uppercase">Bangalore & Kingston</span>
+          <span className="marquee-item font-mono text-[10px] tracking-[3px] text-[#3a607a] uppercase">Surat, Gujarat</span>
           <span className="marquee-dot text-accent">✦</span>
           <span className="marquee-item font-mono text-[10px] tracking-[3px] text-[#3a607a] uppercase">Open to Collabs</span>
           <span className="marquee-dot text-accent">✦</span>
-          <span className="marquee-item font-mono text-[10px] tracking-[3px] text-[#3a607a] uppercase">Aspiring Model</span>
+          <span className="marquee-item font-mono text-[10px] tracking-[3px] text-[#3a607a] uppercase">Digital Marketer</span>
           <span className="marquee-dot text-accent">✦</span>
-          <span className="marquee-item font-mono text-[10px] tracking-[3px] text-[#3a607a] uppercase">Content Creator</span>
+          <span className="marquee-item font-mono text-[10px] tracking-[3px] text-[#3a607a] uppercase">Social Media Marketing</span>
           <span className="marquee-dot text-accent">✦</span>
-          <span className="marquee-item font-mono text-[10px] tracking-[3px] text-[#3a607a] uppercase">CS at Queen's University</span>
+          <span className="marquee-item font-mono text-[10px] tracking-[3px] text-[#3a607a] uppercase">Skoda & Nykaa Luxe</span>
           <span className="marquee-dot text-accent">✦</span>
-          <span className="marquee-item font-mono text-[10px] tracking-[3px] text-[#3a607a] uppercase">Bangalore & Kingston</span>
+          <span className="marquee-item font-mono text-[10px] tracking-[3px] text-[#3a607a] uppercase">Surat, Gujarat</span>
           <span className="marquee-dot text-accent">✦</span>
           <span className="marquee-item font-mono text-[10px] tracking-[3px] text-[#3a607a] uppercase">Open to Collabs</span>
           <span className="marquee-dot text-accent">✦</span>
@@ -322,71 +345,71 @@ function App() {
           <div className="ab2-intro reveal grid grid-cols-[1fr_340px] gap-[60px] items-center mb-20 max-md:grid-cols-1">
             <div className="ab2-statement">
               <h2 className="ab2-headline font-serif text-[clamp(40px,5.8vw,82px)] max-md:text-[clamp(26px,7.5vw,44px)] font-normal leading-none tracking-[-1.5px] max-md:tracking-[-0.5px] mb-6">
-                I've always chased the <em className="italic text-accent">next thing.</em>
+                I build brands that <em className="italic text-accent">perform.</em>
               </h2>
               <p className="ab2-lead text-[14px] max-md:text-[13px] leading-[2] max-md:leading-[1.9] text-ink-soft max-w-[480px]">
-                Change doesn't scare me - it's kind of the only thing I know.
-                I'm the girl who figures it out while she goes — and somehow it always works.
+                Digital marketer with hands-on experience managing luxury and automotive brands including Skoda and Nykaa Luxe.
+                Skilled in high-performance social media campaigns, content strategy, and paid advertising — with a strong focus on engagement and measurable outcomes.
               </p>
             </div>
             <div className="ab2-side-photo w-[340px] h-[440px] overflow-hidden shadow-[0_20px_60px_rgba(10,30,50,0.32),0_4px_16px_rgba(10,30,50,0.14)] max-md:hidden">
-              <img src="https://tishportfolio.netlify.app/IMG_7628.jpg" alt="Tisha Bando" className="w-full h-full object-cover object-[center_top] block" />
+              <img src={photo(2)} alt="Khushali Bochiwal" className="w-full h-full object-cover object-[center_top] block" />
             </div>
           </div>
 
           {/* Row 2: What's in my world — 3-zone bag scene */}
           <div className="ab2-bag-section mb-24 max-md:mb-12">
-            <div className="ab2-section-tag font-mono text-[9px] tracking-[4px] text-accent uppercase flex items-center gap-4 mb-[56px] after:content-[''] after:flex-1 after:h-[1px] after:bg-border">WHAT'S IN MY WORLD</div>
+            <div className="ab2-section-tag font-mono text-[9px] tracking-[4px] text-accent uppercase flex items-center gap-4 mb-[56px] after:content-[''] after:flex-1 after:h-[1px] after:bg-border">BRANDS & SKILLS</div>
             <div className="ab2-bag-scene" id="ab2BagScene">
 
               {/* Center: actual bag image */}
               <div className="ab2-bag-origin" onClick={fireScatter}>
-                <img src="https://tishportfolio.netlify.app/bag-nobg.png" alt="bag" className="ab2-bag-img" />
+                <img src={photo(3)} alt="Marketing toolkit" className="ab2-bag-img" />
               </div>
 
-              {/* LEFT: Measurements panel */}
+              {/* LEFT: Profile panel */}
               <div
                 className={`ab2-bag-item ${isScatterPopped ? 'popped' : ''}`}
                 style={{ '--tx': '-420px', '--ty': '-60px', '--rot': '-2deg' }}
                 data-idx="L"
               >
                 <div className="ab2-meas-panel" onClick={() => setIsMeasOpen(true)}>
-                  <div className="ab2-meas-panel-title">Measurements</div>
+                  <div className="ab2-meas-panel-title">Profile</div>
                   <div className="ab2-meas-panel-row">
-                    <span className="ab2-meas-panel-key">Height</span>
-                    <span className="ab2-meas-panel-val">5'0"</span>
+                    <span className="ab2-meas-panel-key">Location</span>
+                    <span className="ab2-meas-panel-val">Surat, Gujarat</span>
                   </div>
                   <div className="ab2-meas-panel-row">
-                    <span className="ab2-meas-panel-key">Age</span>
-                    <span className="ab2-meas-panel-val">21</span>
+                    <span className="ab2-meas-panel-key">Education</span>
+                    <span className="ab2-meas-panel-val">BBA</span>
                   </div>
                   <div className="ab2-meas-panel-row">
-                    <span className="ab2-meas-panel-key">Size</span>
-                    <span className="ab2-meas-panel-val">S – M</span>
+                    <span className="ab2-meas-panel-key">College</span>
+                    <span className="ab2-meas-panel-val">BMCC, Surat</span>
                   </div>
                   <div className="ab2-meas-panel-row">
-                    <span className="ab2-meas-panel-key">Shoe</span>
-                    <span className="ab2-meas-panel-val">5 UK / 7 US</span>
+                    <span className="ab2-meas-panel-key">Certification</span>
+                    <span className="ab2-meas-panel-val">IIDE — Digital Marketing</span>
                   </div>
                   <div className="ab2-meas-panel-row">
-                    <span className="ab2-meas-panel-key">Eyes</span>
-                    <span className="ab2-meas-panel-val">Russet Brown</span>
+                    <span className="ab2-meas-panel-key">Tools</span>
+                    <span className="ab2-meas-panel-val">Meta & Google Ads</span>
                   </div>
                   <div className="ab2-meas-panel-row">
-                    <span className="ab2-meas-panel-key">Hair</span>
-                    <span className="ab2-meas-panel-val">Black</span>
+                    <span className="ab2-meas-panel-key">Also</span>
+                    <span className="ab2-meas-panel-val">Canva, Mailchimp</span>
                   </div>
                   <div className="ab2-meas-panel-row">
-                    <span className="ab2-meas-panel-key">Bust</span>
-                    <span className="ab2-meas-panel-val">34"</span>
+                    <span className="ab2-meas-panel-key">Focus</span>
+                    <span className="ab2-meas-panel-val">Luxury & Auto</span>
                   </div>
                   <div className="ab2-meas-panel-row">
-                    <span className="ab2-meas-panel-key">Waist</span>
-                    <span className="ab2-meas-panel-val">27"</span>
+                    <span className="ab2-meas-panel-key">Email</span>
+                    <span className="ab2-meas-panel-val">khushali.bochiwal@gmail.com</span>
                   </div>
                   <div className="ab2-meas-panel-row">
-                    <span className="ab2-meas-panel-key">Hips</span>
-                    <span className="ab2-meas-panel-val">35"</span>
+                    <span className="ab2-meas-panel-key">Phone</span>
+                    <span className="ab2-meas-panel-val">+91 8469395052</span>
                   </div>
                 </div>
               </div>
@@ -410,8 +433,8 @@ function App() {
                 </div>
               ))}
 
-              {/* RIGHT: Food plates */}
-              {foodPlates.map((plate, i) => (
+              {/* RIGHT: Brand plates */}
+              {brandPlates.map((plate, i) => (
                 <div
                   key={`food-${i}`}
                   className={`ab2-bag-item ${isScatterPopped ? 'popped' : ''}`}
@@ -436,7 +459,7 @@ function App() {
 
           {/* Row 4: Polaroid gallery */}
           <div className="ab2-polaroid-section mb-5">
-            <div className="ab2-section-tag font-mono text-[9px] tracking-[4px] text-accent uppercase flex items-center gap-4 mb-11 after:content-[''] after:flex-1 after:h-[1px] after:bg-border">A PEEK AT MY LIFE</div>
+            <div className="ab2-section-tag font-mono text-[9px] tracking-[4px] text-accent uppercase flex items-center gap-4 mb-11 after:content-[''] after:flex-1 after:h-[1px] after:bg-border">CAMPAIGN HIGHLIGHTS</div>
             <div className="ab2-polaroid-row flex gap-6 items-start max-md:grid max-md:grid-cols-2 max-md:gap-[14px]">
               {polaroids.map((p, i) => (
                 <div
@@ -468,44 +491,48 @@ function App() {
           <div className="wm-col wide">
             <div className="work-card group relative overflow-hidden bg-cream flex flex-col justify-end p-6 aspect-[2/3] max-md:min-h-[220px]">
               <div className="work-card-img absolute inset-0 flex items-center justify-center">
-                <img src="https://tishportfolio.netlify.app/IMG_2580.JPG" alt="Tisha Bando portrait" className="w-full h-full object-cover" />
+                <img src={photo(0)} alt={workProjects[0].title} className="w-full h-full object-cover" />
               </div>
               <div className="work-card-overlay absolute inset-0 bg-linear-to-t from-[#081424]/72 to-transparent opacity-55 transition-opacity duration-300 group-hover:opacity-82"></div>
               <div className="work-card-meta relative z-10 transition-all duration-300">
-                <div className="work-card-cat font-mono text-[9px] tracking-[3px] text-[#7ec6e8] uppercase mb-[5px]">Commercial / Editorial</div>
-                <div className="work-card-title font-serif text-[17px] text-warm-white font-normal">Portrait — Night Life</div>
+                <div className="work-card-cat font-mono text-[9px] tracking-[3px] text-[#7ec6e8] uppercase mb-[5px]">{workProjects[0].cat}</div>
+                <div className="work-card-title font-serif text-[17px] text-warm-white font-normal">{workProjects[0].title}</div>
+                <div className="work-card-period font-mono text-[8px] tracking-[2px] text-white/60 uppercase mt-1">{workProjects[0].period}</div>
               </div>
             </div>
             <div className="work-card wm-placeholder group relative overflow-hidden flex flex-col justify-end p-6 aspect-[16/9] max-md:min-h-[220px]">
               <div className="work-card-img absolute inset-0 flex items-center justify-center">
-                <img src="https://tishportfolio.netlify.app/IMG_1234.jpg" alt="Tisha Bando fashion" className="w-full h-full object-cover object-center" />
+                <img src={photo(1)} alt={workProjects[1].title} className="w-full h-full object-cover object-center" />
               </div>
               <div className="work-card-overlay absolute inset-0 bg-linear-to-t from-[#081424]/72 to-transparent opacity-55 transition-opacity duration-300 group-hover:opacity-82"></div>
               <div className="work-card-meta relative z-10 transition-all duration-300">
-                <div className="work-card-cat font-mono text-[9px] tracking-[3px] text-[#7ec6e8] uppercase mb-[5px]">Hydrangeas</div>
-                <div className="work-card-title font-serif text-[17px] text-warm-white font-normal">My Favourite Flowers</div>
+                <div className="work-card-cat font-mono text-[9px] tracking-[3px] text-[#7ec6e8] uppercase mb-[5px]">{workProjects[1].cat}</div>
+                <div className="work-card-title font-serif text-[17px] text-warm-white font-normal">{workProjects[1].title}</div>
+                <div className="work-card-period font-mono text-[8px] tracking-[2px] text-white/60 uppercase mt-1">{workProjects[1].period}</div>
               </div>
             </div>
           </div>
           <div className="wm-col narrow">
             <div className="work-card group relative overflow-hidden bg-cream flex flex-col justify-end p-6 aspect-[3/4] max-md:min-h-[220px]">
               <div className="work-card-img absolute inset-0 flex items-center justify-center">
-                <img src="https://tishportfolio.netlify.app/IMG_5215.jpg" alt="Tisha Bando fashion" className="campus-city-img w-full h-full object-cover" />
+                <img src={photo(2)} alt={workProjects[2].title} className="campus-city-img w-full h-full object-cover" />
               </div>
               <div className="work-card-overlay absolute inset-0 bg-linear-to-t from-[#081424]/72 to-transparent opacity-55 transition-opacity duration-300 group-hover:opacity-82"></div>
               <div className="work-card-meta relative z-10 transition-all duration-300">
-                <div className="work-card-cat font-mono text-[9px] tracking-[3px] text-[#7ec6e8] uppercase mb-[5px]">Lifestyle</div>
-                <div className="work-card-title font-serif text-[17px] text-warm-white font-normal">Everyday — Kingston, ON</div>
+                <div className="work-card-cat font-mono text-[9px] tracking-[3px] text-[#7ec6e8] uppercase mb-[5px]">{workProjects[2].cat}</div>
+                <div className="work-card-title font-serif text-[17px] text-warm-white font-normal">{workProjects[2].title}</div>
+                <div className="work-card-period font-mono text-[8px] tracking-[2px] text-white/60 uppercase mt-1">{workProjects[2].period}</div>
               </div>
             </div>
             <div className="work-card group relative overflow-hidden bg-cream flex flex-col justify-end p-6 aspect-[3/4] max-md:min-h-[220px]">
               <div className="work-card-img absolute inset-0 flex items-center justify-center">
-                <img src="https://tishportfolio.netlify.app/IMG_5777.jpg" alt="Tisha Bando street style" className="w-full h-full object-cover object-center" />
+                <img src={photo(3)} alt={workProjects[3].title} className="w-full h-full object-cover object-center" />
               </div>
               <div className="work-card-overlay absolute inset-0 bg-linear-to-t from-[#081424]/72 to-transparent opacity-55 transition-opacity duration-300 group-hover:opacity-82"></div>
               <div className="work-card-meta relative z-10 transition-all duration-300">
-                <div className="work-card-cat font-mono text-[9px] tracking-[3px] text-[#7ec6e8] uppercase mb-[5px]">Fashion</div>
-                <div className="work-card-title font-serif text-[17px] text-warm-white font-normal">Brown on Brown on Brown</div>
+                <div className="work-card-cat font-mono text-[9px] tracking-[3px] text-[#7ec6e8] uppercase mb-[5px]">{workProjects[3].cat}</div>
+                <div className="work-card-title font-serif text-[17px] text-warm-white font-normal">{workProjects[3].title}</div>
+                <div className="work-card-period font-mono text-[8px] tracking-[2px] text-white/60 uppercase mt-1">{workProjects[3].period}</div>
               </div>
             </div>
           </div>
@@ -516,24 +543,26 @@ function App() {
           <div className="wm-col equal">
             <div className="work-card group relative overflow-hidden bg-cream flex flex-col justify-end p-6 aspect-[3/4] max-md:min-h-[220px]">
               <div className="work-card-img absolute inset-0 flex items-center justify-center">
-                <img src="https://tishportfolio.netlify.app/IMG_2751.jpg" alt="Tisha Bando candid" className="w-full h-full object-cover object-center" />
+                <img src={photo(4)} alt={workProjects[4].title} className="w-full h-full object-cover object-center" />
               </div>
               <div className="work-card-overlay absolute inset-0 bg-linear-to-t from-[#081424]/72 to-transparent opacity-55 transition-opacity duration-300 group-hover:opacity-82"></div>
               <div className="work-card-meta relative z-10 transition-all duration-300">
-                <div className="work-card-cat font-mono text-[9px] tracking-[3px] text-[#7ec6e8] uppercase mb-[5px]">Candid</div>
-                <div className="work-card-title font-serif text-[17px] text-warm-white font-normal">Unscripted</div>
+                <div className="work-card-cat font-mono text-[9px] tracking-[3px] text-[#7ec6e8] uppercase mb-[5px]">{workProjects[4].cat}</div>
+                <div className="work-card-title font-serif text-[17px] text-warm-white font-normal">{workProjects[4].title}</div>
+                <div className="work-card-period font-mono text-[8px] tracking-[2px] text-white/60 uppercase mt-1">{workProjects[4].period}</div>
               </div>
             </div>
           </div>
           <div className="wm-col equal">
             <div className="work-card group relative overflow-hidden bg-cream flex flex-col justify-end p-6 aspect-[4/3] max-md:min-h-[220px]">
               <div className="work-card-img absolute inset-0 flex items-center justify-center">
-                <img src="https://tishportfolio.netlify.app/IMG_0585.jpg" alt="Tisha Bando content" className="w-full h-full object-cover object-[center_top]" />
+                <img src={photo(0)} alt="Khushali Bochiwal" className="w-full h-full object-cover object-[center_top]" />
               </div>
               <div className="work-card-overlay absolute inset-0 bg-linear-to-t from-[#081424]/72 to-transparent opacity-55 transition-opacity duration-300 group-hover:opacity-82"></div>
               <div className="work-card-meta relative z-10 transition-all duration-300">
-                <div className="work-card-cat font-mono text-[9px] tracking-[3px] text-[#7ec6e8] uppercase mb-[5px]">Content</div>
-                <div className="work-card-title font-serif text-[17px] text-warm-white font-normal">Shades & a Lip</div>
+                <div className="work-card-cat font-mono text-[9px] tracking-[3px] text-[#7ec6e8] uppercase mb-[5px]">Client Servicing</div>
+                <div className="work-card-title font-serif text-[17px] text-warm-white font-normal">Agency & Independent Consulting</div>
+                <div className="work-card-period font-mono text-[8px] tracking-[2px] text-white/60 uppercase mt-1">Scribbld · Saatchi · Propagate</div>
               </div>
             </div>
           </div>
@@ -543,7 +572,7 @@ function App() {
       {/* QUOTE */}
       <div className="quote-section reveal py-20 px-12 text-center border-t border-b border-border w-full max-md:py-14 max-md:px-7">
         <p className="big-quote font-serif text-[clamp(20px,2.5vw,34px)] max-md:text-[clamp(16px,4.5vw,24px)] font-normal italic leading-[1.55] max-w-[680px] mx-auto mb-5 text-ink-soft">
-          " I have <span className="text-accent">a way of being</span> that people remember."
+          " Building brand presence, driving engagement, and delivering <span className="text-accent">measurable</span> campaign outcomes."
         </p>
       </div>
 
@@ -556,33 +585,33 @@ function App() {
         <div className="offers-grid reveal reveal-delay-1 grid grid-cols-3 gap-[1px] bg-border border border-border mt-[52px] max-md:grid-cols-1 max-md:gap-4">
           <div className="offer-cell bg-warm-white p-[36px_28px] transition-all duration-[350ms] ease-out hover:bg-cream hover:-translate-y-[3px]">
             <div className="offer-num font-serif text-[36px] color-border mb-[18px] leading-none text-border">01</div>
-            <div className="offer-title text-[14px] font-medium text-ink mb-[10px] tracking-[0.2px]">Commercial Modelling</div>
-            <div className="offer-desc text-[12px] leading-[1.85] text-muted">Brand campaigns, product shoots, lifestyle and e-commerce imagery. Real-person energy, relatable face.</div>
+            <div className="offer-title text-[14px] font-medium text-ink mb-[10px] tracking-[0.2px]">Social Media Marketing</div>
+            <div className="offer-desc text-[12px] leading-[1.85] text-muted">End-to-end social management, reels, campaign calendars, and premium content for luxury and lifestyle brands.</div>
           </div>
           <div className="offer-cell bg-warm-white p-[36px_28px] transition-all duration-[350ms] ease-out hover:bg-cream hover:-translate-y-[3px]">
             <div className="offer-num font-serif text-[36px] color-border mb-[18px] leading-none text-border">02</div>
-            <div className="offer-title text-[14px] font-medium text-ink mb-[10px] tracking-[0.2px]">Editorial & Print</div>
-            <div className="offer-desc text-[12px] leading-[1.85] text-muted">Lookbooks, catalogue work, fashion editorial. Open to test shoots with photographers building their portfolios.</div>
+            <div className="offer-title text-[14px] font-medium text-ink mb-[10px] tracking-[0.2px]">Brand Strategy</div>
+            <div className="offer-desc text-[12px] leading-[1.85] text-muted">Positioning, digital presence, and campaign planning — from store launches to full brand activations.</div>
           </div>
           <div className="offer-cell bg-warm-white p-[36px_28px] transition-all duration-[350ms] ease-out hover:bg-cream hover:-translate-y-[3px]">
             <div className="offer-num font-serif text-[36px] color-border mb-[18px] leading-none text-border">03</div>
-            <div className="offer-title text-[14px] font-medium text-ink mb-[10px] tracking-[0.2px]">Jewellery & Detail Work</div>
-            <div className="offer-desc text-[12px] leading-[1.85] text-muted">Jewellery campaigns, hand modelling, close-up and detail shots. Comfortable with product-forward and accessory-led work.</div>
+            <div className="offer-title text-[14px] font-medium text-ink mb-[10px] tracking-[0.2px]">Paid Advertising</div>
+            <div className="offer-desc text-[12px] leading-[1.85] text-muted">Meta Ads and Google Ads campaigns focused on reach, engagement, and conversions — optimized from insights.</div>
           </div>
           <div className="offer-cell bg-warm-white p-[36px_28px] transition-all duration-[350ms] ease-out hover:bg-cream hover:-translate-y-[3px]">
             <div className="offer-num font-serif text-[36px] color-border mb-[18px] leading-none text-border">04</div>
-            <div className="offer-title text-[14px] font-medium text-ink mb-[10px] tracking-[0.2px]">Content Creation</div>
-            <div className="offer-desc text-[12px] leading-[1.85] text-muted">On-camera content for brands and campaigns. Natural delivery, comfortable in front of the lens, platform-native formats.</div>
+            <div className="offer-title text-[14px] font-medium text-ink mb-[10px] tracking-[0.2px]">Influencer Marketing</div>
+            <div className="offer-desc text-[12px] leading-[1.85] text-muted">Creator partnerships and influencer-led campaigns aligned with brand goals and audience growth.</div>
           </div>
           <div className="offer-cell bg-warm-white p-[36px_28px] transition-all duration-[350ms] ease-out hover:bg-cream hover:-translate-y-[3px]">
             <div className="offer-num font-serif text-[36px] color-border mb-[18px] leading-none text-border">05</div>
-            <div className="offer-title text-[14px] font-medium text-ink mb-[10px] tracking-[0.2px]">Availability</div>
-            <div className="offer-desc text-[12px] leading-[1.85] text-muted">Kingston and Toronto year-round. Bangalore May–September. Open to travel. English, Hindi, Bengali.</div>
+            <div className="offer-title text-[14px] font-medium text-ink mb-[10px] tracking-[0.2px]">Client Servicing & PR</div>
+            <div className="offer-desc text-[12px] leading-[1.85] text-muted">Client acquisition, onboarding, communication, and smooth campaign execution across agency environments.</div>
           </div>
           <div className="offer-cell bg-warm-white p-[36px_28px] transition-all duration-[350ms] ease-out hover:bg-cream hover:-translate-y-[3px]">
             <div className="offer-num font-serif text-[36px] color-border mb-[18px] leading-none text-border">06</div>
-            <div className="offer-title text-[14px] font-medium text-ink mb-[10px] tracking-[0.2px]">Open To</div>
-            <div className="offer-desc text-[12px] leading-[1.85] text-muted">New faces work, student rates, testing with photographers and emerging designers. Just reach out.</div>
+            <div className="offer-title text-[14px] font-medium text-ink mb-[10px] tracking-[0.2px]">Content Strategy</div>
+            <div className="offer-desc text-[12px] leading-[1.85] text-muted">Content calendars, creative direction with teams, and performance-led storytelling for emerging brands.</div>
           </div>
         </div>
       </section>
@@ -596,27 +625,23 @@ function App() {
               Let's make<br />something <em className="italic text-accent">good.</em>
             </h2>
             <p className="contact-body text-[13px] leading-[1.95] text-muted mb-9">
-              Available for shoots, campaigns, collabs, and creative projects.
-              Based in Kingston and Toronto — Bangalore May to September.
+              Digital Marketer · Social Media & Brand Strategy Specialist.
+              Based in Surat, Gujarat — open to agency roles, brand consulting, and campaign collaborations.
               I respond to every message.
             </p>
             <div className="contact-links flex flex-col">
-              <a href="mailto:tishab740@gmail.com" className="contact-link flex items-center gap-4 text-ink-soft text-[13px] py-[14px] border-b border-border hover:text-accent transition-colors duration-200">
+              <a href="mailto:khushali.bochiwal@gmail.com" className="contact-link flex items-center gap-4 text-ink-soft text-[13px] py-[14px] border-b border-border hover:text-accent transition-colors duration-200">
                 <span className="contact-link-label font-mono text-[9px] tracking-[2px] text-muted uppercase min-width-[76px]">Email</span>
-                tishab740@gmail.com
+                khushali.bochiwal@gmail.com
               </a>
-              <a href="https://instagram.com/tisha_189" className="contact-link flex items-center gap-4 text-ink-soft text-[13px] py-[14px] border-b border-border hover:text-accent transition-colors duration-200" target="_blank" rel="noopener noreferrer">
-                <span className="contact-link-label font-mono text-[9px] tracking-[2px] text-muted uppercase min-width-[76px]">Instagram</span>
-                @tisha_189
+              <a href="tel:+918469395052" className="contact-link flex items-center gap-4 text-ink-soft text-[13px] py-[14px] border-b border-border hover:text-accent transition-colors duration-200">
+                <span className="contact-link-label font-mono text-[9px] tracking-[2px] text-muted uppercase min-width-[76px]">Phone</span>
+                +91 8469395052
               </a>
-              <a href="https://tiktok.com/@tisha_189" className="contact-link flex items-center gap-4 text-ink-soft text-[13px] py-[14px] border-b border-border hover:text-accent transition-colors duration-200" target="_blank" rel="noopener noreferrer">
-                <span className="contact-link-label font-mono text-[9px] tracking-[2px] text-muted uppercase min-width-[76px]">TikTok</span>
-                @tisha_189
-              </a>
-              <a href="https://www.linkedin.com/in/tisha-bandyopadhyay" className="contact-link flex items-center gap-4 text-ink-soft text-[13px] py-[14px] border-b border-border hover:text-accent transition-colors duration-200" target="_blank" rel="noopener noreferrer">
-                <span className="contact-link-label font-mono text-[9px] tracking-[2px] text-muted uppercase min-width-[76px]">LinkedIn</span>
-                linkedin.com/in/tisha-bandyopadhyay
-              </a>
+              <span className="contact-link flex items-center gap-4 text-ink-soft text-[13px] py-[14px] border-b border-border">
+                <span className="contact-link-label font-mono text-[9px] tracking-[2px] text-muted uppercase min-width-[76px]">Location</span>
+                Surat, Gujarat, India
+              </span>
             </div>
           </div>
           <div className="contact-form-side reveal reveal-delay-1 flex flex-col gap-[18px]">
@@ -630,7 +655,7 @@ function App() {
             </div>
             <div className="form-row flex flex-col gap-[7px]">
               <label className="form-label font-mono text-[9px] tracking-[2px] text-muted uppercase">What's this about</label>
-              <input className="form-input bg-transparent border-none border-b border-border py-[11px] font-body text-[13px] text-ink outline-none focus:border-accent placeholder:text-sand w-full" type="text" placeholder="Shoot / Campaign / Test / etc." />
+              <input className="form-input bg-transparent border-none border-b border-border py-[11px] font-body text-[13px] text-ink outline-none focus:border-accent placeholder:text-sand w-full" type="text" placeholder="Social media / Paid ads / Brand strategy" />
             </div>
             <div className="form-row flex flex-col gap-[7px]">
               <label className="form-label font-mono text-[9px] tracking-[2px] text-muted uppercase">Tell me more</label>
@@ -645,29 +670,26 @@ function App() {
 
       {/* FOOTER */}
       <footer className="bg-ink py-11 px-6 md:px-12 flex justify-between items-center max-md:flex-col max-md:gap-5 max-md:text-center">
-        <span className="footer-name font-mono text-[16px] tracking-[3px] uppercase text-warm-white">Tisha Bando</span>
+        <span className="footer-name font-mono text-[16px] tracking-[3px] uppercase text-warm-white">Khushali Bochiwal</span>
         <span className="footer-copy font-mono text-[9px] tracking-[2px] text-[#2a4d6e] uppercase">© 2026 — All rights reserved</span>
         <div className="footer-socials flex gap-6 max-md:flex-wrap max-md:justify-center max-md:gap-4">
-          <a href="https://instagram.com/tisha_189" className="footer-social font-mono text-[9px] tracking-[2px] text-[#2a4d6e] uppercase hover:text-accent transition-colors duration-200" target="_blank" rel="noopener noreferrer">Instagram</a>
-          <a href="https://tiktok.com/@tisha_189" className="footer-social font-mono text-[9px] tracking-[2px] text-[#2a4d6e] uppercase hover:text-accent transition-colors duration-200" target="_blank" rel="noopener noreferrer">TikTok</a>
-          <a href="https://www.linkedin.com/in/tisha-bandyopadhyay" className="footer-social font-mono text-[9px] tracking-[2px] text-[#2a4d6e] uppercase hover:text-accent transition-colors duration-200" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          <a href="mailto:tishab740@gmail.com" className="footer-social font-mono text-[9px] tracking-[2px] text-[#2a4d6e] uppercase hover:text-accent transition-colors duration-200">Email</a>
+          <a href="mailto:khushali.bochiwal@gmail.com" className="footer-social font-mono text-[9px] tracking-[2px] text-[#2a4d6e] uppercase hover:text-accent transition-colors duration-200">Email</a>
+          <a href="tel:+918469395052" className="footer-social font-mono text-[9px] tracking-[2px] text-[#2a4d6e] uppercase hover:text-accent transition-colors duration-200">Phone</a>
         </div>
       </footer>
 
-      {/* MEASUREMENTS MODAL */}
+      {/* PROFILE MODAL */}
       <div id="measModal" className={`meas-modal-overlay flex items-center justify-center transition-all duration-300 ${isMeasOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} onClick={(e) => { if (e.target === e.currentTarget) setIsMeasOpen(false) }}>
         <div className="meas-modal-card bg-white p-[44px_52px] max-md:p-[32px_28px] max-sm:p-[24px_18px] min-w-[340px] max-md:min-w-0 max-md:w-[calc(100vw-48px)] max-sm:w-[calc(100vw-32px)] max-md:max-h-[88dvh] max-md:overflow-y-auto shadow-[0_32px_80px_rgba(10,30,50,0.55),0_8px_24px_rgba(10,30,50,0.3)] animate-modalPop">
-          <div className="ab2-meas-panel-title font-mono text-[10px] tracking-[3px] uppercase text-accent mb-5 pb-4 border-b border-border">Measurements</div>
-          <div className="ab2-meas-panel-row flex justify-between items-center py-[13px] border-b border-border"><span className="ab2-meas-panel-key font-mono text-[9px] tracking-[2px] uppercase text-muted">Height</span><span className="ab2-meas-panel-val text-[16px] text-ink">5'0"</span></div>
-          <div className="ab2-meas-panel-row flex justify-between items-center py-[13px] border-b border-border"><span className="ab2-meas-panel-key font-mono text-[9px] tracking-[2px] uppercase text-muted">Age</span><span className="ab2-meas-panel-val text-[16px] text-ink">21</span></div>
-          <div className="ab2-meas-panel-row flex justify-between items-center py-[13px] border-b border-border"><span className="ab2-meas-panel-key font-mono text-[9px] tracking-[2px] uppercase text-muted">Size</span><span className="ab2-meas-panel-val text-[16px] text-ink">S – M</span></div>
-          <div className="ab2-meas-panel-row flex justify-between items-center py-[13px] border-b border-border"><span className="ab2-meas-panel-key font-mono text-[9px] tracking-[2px] uppercase text-muted">Shoe</span><span className="ab2-meas-panel-val text-[16px] text-ink">5 US / 7 UK</span></div>
-          <div className="ab2-meas-panel-row flex justify-between items-center py-[13px] border-b border-border"><span className="ab2-meas-panel-key font-mono text-[9px] tracking-[2px] uppercase text-muted">Eyes</span><span className="ab2-meas-panel-val text-[16px] text-ink">Russet Brown</span></div>
-          <div className="ab2-meas-panel-row flex justify-between items-center py-[13px] border-b border-border"><span className="ab2-meas-panel-key font-mono text-[9px] tracking-[2px] uppercase text-muted">Hair</span><span className="ab2-meas-panel-val text-[16px] text-ink">Black</span></div>
-          <div className="ab2-meas-panel-row flex justify-between items-center py-[13px] border-b border-border"><span className="ab2-meas-panel-key font-mono text-[9px] tracking-[2px] uppercase text-muted">Bust</span><span className="ab2-meas-panel-val text-[16px] text-ink">34"</span></div>
-          <div className="ab2-meas-panel-row flex justify-between items-center py-[13px] border-b border-border"><span className="ab2-meas-panel-key font-mono text-[9px] tracking-[2px] uppercase text-muted">Waist</span><span className="ab2-meas-panel-val text-[16px] text-ink">27"</span></div>
-          <div className="ab2-meas-panel-row flex justify-between items-center py-[13px] border-b border-border:last-child border-b-none"><span className="ab2-meas-panel-key font-mono text-[9px] tracking-[2px] uppercase text-muted">Hips</span><span className="ab2-meas-panel-val text-[16px] text-ink">35"</span></div>
+          <div className="ab2-meas-panel-title font-mono text-[10px] tracking-[3px] uppercase text-accent mb-5 pb-4 border-b border-border">Profile</div>
+          <div className="ab2-meas-panel-row flex justify-between items-center py-[13px] border-b border-border gap-4"><span className="ab2-meas-panel-key font-mono text-[9px] tracking-[2px] uppercase text-muted shrink-0">Title</span><span className="ab2-meas-panel-val text-[14px] text-ink text-right">Digital Marketer · Brand Strategy</span></div>
+          <div className="ab2-meas-panel-row flex justify-between items-center py-[13px] border-b border-border"><span className="ab2-meas-panel-key font-mono text-[9px] tracking-[2px] uppercase text-muted">Location</span><span className="ab2-meas-panel-val text-[16px] text-ink">Surat, Gujarat, India</span></div>
+          <div className="ab2-meas-panel-row flex justify-between items-center py-[13px] border-b border-border gap-4"><span className="ab2-meas-panel-key font-mono text-[9px] tracking-[2px] uppercase text-muted shrink-0">Education</span><span className="ab2-meas-panel-val text-[14px] text-ink text-right">BBA — Bhagwan Mahavir College of Commerce, Surat</span></div>
+          <div className="ab2-meas-panel-row flex justify-between items-center py-[13px] border-b border-border gap-4"><span className="ab2-meas-panel-key font-mono text-[9px] tracking-[2px] uppercase text-muted shrink-0">Certification</span><span className="ab2-meas-panel-val text-[14px] text-ink text-right">Post Graduation in Digital Marketing — IIDE</span></div>
+          <div className="ab2-meas-panel-row flex justify-between items-center py-[13px] border-b border-border gap-4"><span className="ab2-meas-panel-key font-mono text-[9px] tracking-[2px] uppercase text-muted shrink-0">Tools</span><span className="ab2-meas-panel-val text-[14px] text-ink text-right">Meta Ads, Google Ads, Canva, Mailchimp, WordPress</span></div>
+          <div className="ab2-meas-panel-row flex justify-between items-center py-[13px] border-b border-border gap-4"><span className="ab2-meas-panel-key font-mono text-[9px] tracking-[2px] uppercase text-muted shrink-0">Skills</span><span className="ab2-meas-panel-val text-[14px] text-ink text-right">Social Media · PR · Influencer · Client Servicing</span></div>
+          <div className="ab2-meas-panel-row flex justify-between items-center py-[13px] border-b border-border"><span className="ab2-meas-panel-key font-mono text-[9px] tracking-[2px] uppercase text-muted">Email</span><span className="ab2-meas-panel-val text-[16px] text-ink">khushali.bochiwal@gmail.com</span></div>
+          <div className="ab2-meas-panel-row flex justify-between items-center py-[13px] border-b border-border:last-child border-b-none"><span className="ab2-meas-panel-key font-mono text-[9px] tracking-[2px] uppercase text-muted">Phone</span><span className="ab2-meas-panel-val text-[16px] text-ink">+91 8469395052</span></div>
         </div>
       </div>
 
@@ -675,19 +697,19 @@ function App() {
       <div id="foodGallery" className={`fg-overlay flex items-center justify-center transition-all duration-300 ${isFoodOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} onClick={(e) => { if (e.target === e.currentTarget || e.target.classList.contains('fg-overlay')) closeFoodGallery() }}>
         <div className="fg-track" id="fgTrack" ref={trackRef} onScroll={onFoodTrackScroll}>
           {/* Set 1: clone */}
-          {foodPlates.map((plate, i) => (
+          {brandPlates.map((plate, i) => (
             <div key={`food-clone1-${i}`} className={`fg-item ${activeFoodIdx === i ? 'fg-active' : ''}`} data-idx={String(i)}>
               <img src={plate.src} alt={plate.label} />
             </div>
           ))}
           {/* Set 2: original */}
-          {foodPlates.map((plate, i) => (
+          {brandPlates.map((plate, i) => (
             <div key={`food-orig-${i}`} className={`fg-item ${activeFoodIdx === i ? 'fg-active' : ''}`} data-idx={String(i)}>
               <img src={plate.src} alt={plate.label} />
             </div>
           ))}
           {/* Set 3: clone */}
-          {foodPlates.map((plate, i) => (
+          {brandPlates.map((plate, i) => (
             <div key={`food-clone2-${i}`} className={`fg-item ${activeFoodIdx === i ? 'fg-active' : ''}`} data-idx={String(i)}>
               <img src={plate.src} alt={plate.label} />
             </div>
