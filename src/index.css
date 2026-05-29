@@ -77,6 +77,10 @@ section, .quote-section {
   background: rgba(242, 248, 252, 0.78);
 }
 
+#contact {
+  background: rgba(218, 234, 246, 0.9);
+}
+
 .marquee-wrap {
   background: var(--ink) !important;
 }
