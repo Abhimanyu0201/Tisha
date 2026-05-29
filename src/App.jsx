@@ -102,28 +102,38 @@ function App() {
     return () => observer.disconnect()
   }, [])
 
-  // Parallax headings requestAnimationFrame loop
+  // Parallax headings on scroll
   useEffect(() => {
     let active = true
+    let animationFrameId = null
+    const slowEls = document.querySelectorAll('.about-headline, .work-intro, .contact-headline')
+    
     const onParallax = () => {
       if (!active) return
-      const slowEls = document.querySelectorAll('.about-headline, .work-intro, .contact-headline')
+      const winH = window.innerHeight
       slowEls.forEach((el) => {
         const rect = el.getBoundingClientRect()
-        const mid = rect.top + rect.height / 2
-        const off = (mid - window.innerHeight / 2) * 0.04
-        el.style.transform = `translateY(${off}px)`
+        // Only calculate if element is roughly in view
+        if (rect.top < winH + 100 && rect.bottom > -100) {
+          const mid = rect.top + rect.height / 2
+          const off = (mid - winH / 2) * 0.04
+          el.style.transform = `translateY(${off}px)`
+        }
       })
     }
 
-    const loop = () => {
-      onParallax()
-      if (active) requestAnimationFrame(loop)
+    const onScrollHandler = () => {
+      if (animationFrameId) cancelAnimationFrame(animationFrameId)
+      animationFrameId = requestAnimationFrame(onParallax)
     }
-    requestAnimationFrame(loop)
+
+    window.addEventListener('scroll', onScrollHandler, { passive: true })
+    onScrollHandler()
 
     return () => {
       active = false
+      window.removeEventListener('scroll', onScrollHandler)
+      if (animationFrameId) cancelAnimationFrame(animationFrameId)
     }
   }, [])
 
@@ -131,16 +141,20 @@ function App() {
   useEffect(() => {
     const heroEl = document.getElementById('hero')
     const bgImg = document.getElementById('bg-img6203')
-    const frameCols = document.querySelectorAll('.hero-frame-col')
+    const frameCols = Array.from(document.querySelectorAll('.hero-frame-col')).map(col => ({
+      el: col,
+      speed: parseFloat(col.getAttribute('data-speed') || '0.4')
+    }))
+
+    let animationFrameId = null
 
     const onScroll = () => {
       const scrollY = window.scrollY
       const heroH = heroEl ? heroEl.offsetHeight : window.innerHeight
 
       if (scrollY <= heroH * 1.1) {
-        frameCols.forEach((col) => {
-          const speed = parseFloat(col.getAttribute('data-speed') || '0.4')
-          col.style.transform = `translateY(${-scrollY * speed}px)`
+        frameCols.forEach(({ el, speed }) => {
+          el.style.transform = `translateY(${-scrollY * speed}px)`
         })
       }
 
@@ -155,10 +169,18 @@ function App() {
       }
     }
 
-    window.addEventListener('scroll', onScroll, { passive: true })
-    onScroll()
+    const onScrollHandler = () => {
+      if (animationFrameId) cancelAnimationFrame(animationFrameId)
+      animationFrameId = requestAnimationFrame(onScroll)
+    }
 
-    return () => window.removeEventListener('scroll', onScroll)
+    window.addEventListener('scroll', onScrollHandler, { passive: true })
+    onScrollHandler()
+
+    return () => {
+      window.removeEventListener('scroll', onScrollHandler)
+      if (animationFrameId) cancelAnimationFrame(animationFrameId)
+    }
   }, [])
 
   // Food plate gallery infinite scrolling setup
@@ -238,6 +260,7 @@ function App() {
         <span className="nav-name text-[11px] font-mono tracking-[3px] text-ink-soft uppercase opacity-0 animate-[fadeIn_0.8s_0.3s_forwards]">Khushali Bochiwal</span>
         <div className={`nav-links flex gap-8 max-md:fixed max-md:top-0 max-md:w-[min(72vw,280px)] max-md:h-dvh max-md:bg-ink max-md:flex-col max-md:justify-center max-md:items-start max-md:py-16 max-md:px-10 max-md:gap-9 max-md:transition-all max-md:duration-[380ms] max-md:ease-out max-md:z-[150] max-md:shadow-[-14px_0_48px_rgba(0,0,0,0.5)] ${isMobileMenuOpen ? 'max-md:right-0' : 'max-md:right-[-100%]'}`} id="navLinks">
           <a href="#about" className="font-mono text-[10px] tracking-[2px] text-muted uppercase hover:text-accent max-md:text-[13px] max-md:tracking-[3px] max-md:text-white/72 max-md:opacity-100 max-md:animate-none" onClick={() => setIsMobileMenuOpen(false)}>About</a>
+          <a href="#skills" className="font-mono text-[10px] tracking-[2px] text-muted uppercase hover:text-accent max-md:text-[13px] max-md:tracking-[3px] max-md:text-white/72 max-md:opacity-100 max-md:animate-none" onClick={() => setIsMobileMenuOpen(false)}>Skills</a>
           <a href="#work" className="font-mono text-[10px] tracking-[2px] text-muted uppercase hover:text-accent max-md:text-[13px] max-md:tracking-[3px] max-md:text-white/72 max-md:opacity-100 max-md:animate-none" onClick={() => setIsMobileMenuOpen(false)}>Work</a>
           <a href="#services" className="font-mono text-[10px] tracking-[2px] text-muted uppercase hover:text-accent max-md:text-[13px] max-md:tracking-[3px] max-md:text-white/72 max-md:opacity-100 max-md:animate-none" onClick={() => setIsMobileMenuOpen(false)}>What I Do</a>
           <a href="#contact" className="font-mono text-[10px] tracking-[2px] text-muted uppercase hover:text-accent max-md:text-[13px] max-md:tracking-[3px] max-md:text-white/72 max-md:opacity-100 max-md:animate-none" onClick={() => setIsMobileMenuOpen(false)}>Contact</a>
@@ -258,14 +281,14 @@ function App() {
       {/* Hero background image */}
       <div
         id="bg-img6203"
-        style={{ backgroundImage: `url(${photo(0)})` }}
+        style={{ backgroundImage: `url(${photo(5)})` }}
       />
 
-      {/* HERO */}
+      {/* HERO */} 
       <div
         className="hero min-h-screen relative overflow-hidden flex items-center justify-center"
         id="hero"
-        style={{ backgroundImage: `url(${photo(1)})` }}
+        style={{ backgroundImage: `url(${photo(5)})`, }}
       >
         {/* Rising photo frames */}
         <div className="hero-frames">
@@ -353,18 +376,20 @@ function App() {
               </p>
             </div>
             <div className="ab2-side-photo w-[340px] h-[440px] overflow-hidden shadow-[0_20px_60px_rgba(10,30,50,0.32),0_4px_16px_rgba(10,30,50,0.14)] max-md:hidden">
-              <img src={photo(2)} alt="Khushali Bochiwal" className="w-full h-full object-cover object-[center_top] block" />
+              <img src={photo(2)} alt="Khushali Bochiwal" loading="lazy" className="w-full h-full object-cover object-[center_top] block" />
             </div>
           </div>
 
           {/* Row 2: What's in my world — 3-zone bag scene */}
           <div className="ab2-bag-section mb-24 max-md:mb-12">
-            <div className="ab2-section-tag font-mono text-[9px] tracking-[4px] text-accent uppercase flex items-center gap-4 mb-[56px] after:content-[''] after:flex-1 after:h-[1px] after:bg-border">BRANDS & SKILLS</div>
-            <div className="ab2-bag-scene" id="ab2BagScene">
+            <div className="ab2-section-tag font-mono text-[9px] tracking-[4px] text-accent uppercase flex items-center gap-4 mb-[56px] after:content-[''] after:flex-1 after:h-[1px] after:bg-border">BRANDS & PROFILE</div>
+            
+            {/* Desktop Bag Scene */}
+            <div className="ab2-bag-scene max-lg:hidden" id="ab2BagScene">
 
               {/* Center: actual bag image */}
               <div className="ab2-bag-origin" onClick={fireScatter}>
-                <img src={photo(3)} alt="Marketing toolkit" className="ab2-bag-img" />
+                <img src={photo(3)} alt="Marketing toolkit" loading="lazy" className="ab2-bag-img" />
               </div>
 
               {/* LEFT: Profile panel */}
@@ -427,7 +452,7 @@ function App() {
                   data-idx={String(i)}
                 >
                   <div className="ab2-bag-card" onClick={() => setActiveCardIndex(i)}>
-                    <img src={card.src} alt={card.label} />
+                    <img src={card.src} alt={card.label} loading="lazy" />
                   </div>
                   <span className="ab2-bag-lbl">{card.label}</span>
                 </div>
@@ -449,11 +474,60 @@ function App() {
                     className={`ab2-food-circle ${plate.size === 'sm' ? 'ab2-food-circle--sm' : ''}`}
                     onClick={() => openFoodGallery(i)}
                   >
-                    <img src={plate.src} alt={plate.label} />
+                    <img src={plate.src} alt={plate.label} loading="lazy" />
                   </div>
                 </div>
               ))}
 
+            </div>
+
+            {/* Mobile/Tablet Fallback Layout */}
+            <div className="hidden max-lg:flex flex-col gap-6">
+              {/* Profile Card */}
+              <div className="bg-warm-white p-6 border border-border/80 rounded-lg shadow-sm">
+                <div className="font-mono text-[10px] tracking-[3px] uppercase text-accent mb-4 pb-2 border-b border-border/40">Profile Overview</div>
+                <div className="grid grid-cols-2 gap-y-4 gap-x-6 max-sm:grid-cols-1">
+                  <div className="flex flex-col gap-0.5"><span className="font-mono text-[8px] tracking-[2px] uppercase text-muted">Location</span><span className="text-[13px] text-ink font-body font-light">Surat, Gujarat, India</span></div>
+                  <div className="flex flex-col gap-0.5"><span className="font-mono text-[8px] tracking-[2px] uppercase text-muted">Education</span><span className="text-[13px] text-ink font-body font-light">BBA — Bhagwan Mahavir College</span></div>
+                  <div className="flex flex-col gap-0.5"><span className="font-mono text-[8px] tracking-[2px] uppercase text-muted">Certification</span><span className="text-[13px] text-ink font-body font-light">Post Grad in Digital Marketing — IIDE</span></div>
+                  <div className="flex flex-col gap-0.5"><span className="font-mono text-[8px] tracking-[2px] uppercase text-muted">Tools</span><span className="text-[13px] text-ink font-body font-light">Meta Ads, Google Ads, Canva</span></div>
+                  <div className="flex flex-col gap-0.5"><span className="font-mono text-[8px] tracking-[2px] uppercase text-muted">Email</span><a href="mailto:khushali.bochiwal@gmail.com" className="text-[13px] text-accent hover:underline font-body font-light">khushali.bochiwal@gmail.com</a></div>
+                  <div className="flex flex-col gap-0.5"><span className="font-mono text-[8px] tracking-[2px] uppercase text-muted">Phone</span><a href="tel:+918469395052" className="text-[13px] text-accent hover:underline font-body font-light">+91 8469395052</a></div>
+                </div>
+              </div>
+
+              {/* Brands & Interests Grid */}
+              <div className="grid grid-cols-2 gap-6 max-sm:grid-cols-1">
+                {/* Interests */}
+                <div className="bg-warm-white p-6 border border-border/80 rounded-lg shadow-sm">
+                  <div className="font-mono text-[10px] tracking-[3px] uppercase text-accent mb-4 pb-2 border-b border-border/40">Services & Focus</div>
+                  <div className="grid grid-cols-3 gap-3">
+                    {interestCards.map((card, i) => (
+                      <div key={`mob-interest-${i}`} className="flex flex-col items-center gap-1.5 cursor-pointer hover:scale-105 transition-transform duration-200" onClick={() => setActiveCardIndex(i)}>
+                        <div className="w-16 h-16 rounded overflow-hidden border border-ink shadow-sm">
+                          <img src={card.src} alt={card.label} loading="lazy" className="w-full h-full object-cover" />
+                        </div>
+                        <span className="font-mono text-[7px] tracking-[0.5px] uppercase text-ink-soft text-center leading-tight">{card.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Brands */}
+                <div className="bg-warm-white p-6 border border-border/80 rounded-lg shadow-sm">
+                  <div className="font-mono text-[10px] tracking-[3px] uppercase text-accent mb-4 pb-2 border-b border-border/40">Brand Activations</div>
+                  <div className="grid grid-cols-3 gap-3">
+                    {brandPlates.map((plate, i) => (
+                      <div key={`mob-brand-${i}`} className="flex flex-col items-center gap-1.5 cursor-pointer hover:scale-105 transition-transform duration-200" onClick={() => openFoodGallery(i)}>
+                        <div className="w-16 h-16 rounded-full overflow-hidden border border-ink shadow-sm">
+                          <img src={plate.src} alt={plate.label} loading="lazy" className="w-full h-full object-cover" />
+                        </div>
+                        <span className="font-mono text-[7px] tracking-[0.5px] uppercase text-ink-soft text-center leading-tight">{plate.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -470,11 +544,82 @@ function App() {
                     '--pol-delay': p.delay,
                   }}
                 >
-                  <img src={p.src} alt={p.caption} style={{ objectPosition: p.position || 'center' }} />
+                  <img src={p.src} alt={p.caption} loading="lazy" style={{ objectPosition: p.position || 'center' }} />
                   <span className="ab2-pol-cap">{p.caption}</span>
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SKILLS */}
+      <section id="skills" className="py-[100px] px-12 max-w-[1200px] mx-auto pb-10 max-md:py-[60px] max-md:px-6">
+        <div className="section-label font-mono text-[9px] tracking-[4px] text-accent uppercase mb-12 flex items-center gap-4 after:content-[''] after:flex-1 after:h-[1px] after:bg-border">Skills</div>
+        <h2 className="reveal font-serif text-[clamp(26px,2.8vw,40px)] font-normal leading-[1.2] mb-7">
+          My expertise & <em className="italic text-accent">toolkit.</em>
+        </h2>
+        
+        <div className="reveal grid grid-cols-3 gap-8 mt-12 max-lg:grid-cols-1">
+          {/* Core Skills */}
+          <div className="bg-warm-white p-8 border border-border/60 hover:border-accent/40 transition-all duration-300 rounded-lg">
+            <h3 className="font-mono text-[11px] tracking-[3px] text-accent uppercase mb-6 pb-2 border-b border-border/40">Core Skills</h3>
+            <ul className="flex flex-col gap-4">
+              {[
+                "Social Media Marketing",
+                "Brand Strategy",
+                "Influencer Marketing",
+                "Client Servicing",
+                "Public Relations"
+              ].map((skill, index) => (
+                <li key={index} className="flex items-center gap-3">
+                  <span className="w-1.5 h-1.5 bg-accent rounded-full"></span>
+                  <span className="text-[13px] text-ink font-body font-light tracking-[0.2px]">{skill}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Tools */}
+          <div className="bg-warm-white p-8 border border-border/60 hover:border-accent/40 transition-all duration-300 rounded-lg">
+            <h3 className="font-mono text-[11px] tracking-[3px] text-accent uppercase mb-6 pb-2 border-b border-border/40">Tools</h3>
+            <div className="flex flex-wrap gap-2.5">
+              {[
+                "Meta Ads Manager",
+                "Google Ads",
+                "Mailchimp",
+                "Canva",
+                "WordPress",
+                "Microsoft Office"
+              ].map((tool, index) => (
+                <span key={index} className="px-3.5 py-1.5 bg-cream text-ink-soft rounded-full text-[11px] font-mono tracking-[0.5px] border border-border/20 hover:bg-accent-soft hover:text-accent-mid transition-all duration-200">
+                  {tool}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Soft Skills */}
+          <div className="bg-warm-white p-8 border border-border/60 hover:border-accent/40 transition-all duration-300 rounded-lg">
+            <h3 className="font-mono text-[11px] tracking-[3px] text-accent uppercase mb-6 pb-2 border-b border-border/40">Soft Skills</h3>
+            <ul className="flex flex-col gap-4">
+              {[
+                "Communication",
+                "Time Management",
+                "Problem Solving",
+                "Teamwork",
+                "Leadership"
+              ].map((soft, index) => (
+                <li key={index} className="flex flex-col gap-1.5">
+                  <div className="flex justify-between items-center">
+                    <span className="text-[13px] text-ink font-body font-light">{soft}</span>
+                  </div>
+                  <div className="w-full h-1 bg-border/40 rounded-full overflow-hidden">
+                    <div className="h-full bg-accent rounded-full" style={{ width: `${85 + (index * 3) % 15}%` }}></div>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
@@ -491,7 +636,7 @@ function App() {
           <div className="wm-col wide">
             <div className="work-card group relative overflow-hidden bg-cream flex flex-col justify-end p-6 aspect-[2/3] max-md:min-h-[220px]">
               <div className="work-card-img absolute inset-0 flex items-center justify-center">
-                <img src={photo(0)} alt={workProjects[0].title} className="w-full h-full object-cover" />
+                <img src={photo(0)} alt={workProjects[0].title} loading="lazy" className="w-full h-full object-cover" />
               </div>
               <div className="work-card-overlay absolute inset-0 bg-linear-to-t from-[#081424]/72 to-transparent opacity-55 transition-opacity duration-300 group-hover:opacity-82"></div>
               <div className="work-card-meta relative z-10 transition-all duration-300">
@@ -502,7 +647,7 @@ function App() {
             </div>
             <div className="work-card wm-placeholder group relative overflow-hidden flex flex-col justify-end p-6 aspect-[16/9] max-md:min-h-[220px]">
               <div className="work-card-img absolute inset-0 flex items-center justify-center">
-                <img src={photo(1)} alt={workProjects[1].title} className="w-full h-full object-cover object-center" />
+                <img src={photo(1)} alt={workProjects[1].title} loading="lazy" className="w-full h-full object-cover object-center" />
               </div>
               <div className="work-card-overlay absolute inset-0 bg-linear-to-t from-[#081424]/72 to-transparent opacity-55 transition-opacity duration-300 group-hover:opacity-82"></div>
               <div className="work-card-meta relative z-10 transition-all duration-300">
@@ -515,7 +660,7 @@ function App() {
           <div className="wm-col narrow">
             <div className="work-card group relative overflow-hidden bg-cream flex flex-col justify-end p-6 aspect-[3/4] max-md:min-h-[220px]">
               <div className="work-card-img absolute inset-0 flex items-center justify-center">
-                <img src={photo(2)} alt={workProjects[2].title} className="campus-city-img w-full h-full object-cover" />
+                <img src={photo(2)} alt={workProjects[2].title} loading="lazy" className="campus-city-img w-full h-full object-cover" />
               </div>
               <div className="work-card-overlay absolute inset-0 bg-linear-to-t from-[#081424]/72 to-transparent opacity-55 transition-opacity duration-300 group-hover:opacity-82"></div>
               <div className="work-card-meta relative z-10 transition-all duration-300">
@@ -526,7 +671,7 @@ function App() {
             </div>
             <div className="work-card group relative overflow-hidden bg-cream flex flex-col justify-end p-6 aspect-[3/4] max-md:min-h-[220px]">
               <div className="work-card-img absolute inset-0 flex items-center justify-center">
-                <img src={photo(3)} alt={workProjects[3].title} className="w-full h-full object-cover object-center" />
+                <img src={photo(3)} alt={workProjects[3].title} loading="lazy" className="w-full h-full object-cover object-center" />
               </div>
               <div className="work-card-overlay absolute inset-0 bg-linear-to-t from-[#081424]/72 to-transparent opacity-55 transition-opacity duration-300 group-hover:opacity-82"></div>
               <div className="work-card-meta relative z-10 transition-all duration-300">
@@ -543,7 +688,7 @@ function App() {
           <div className="wm-col equal">
             <div className="work-card group relative overflow-hidden bg-cream flex flex-col justify-end p-6 aspect-[3/4] max-md:min-h-[220px]">
               <div className="work-card-img absolute inset-0 flex items-center justify-center">
-                <img src={photo(4)} alt={workProjects[4].title} className="w-full h-full object-cover object-center" />
+                <img src={photo(4)} alt={workProjects[4].title} loading="lazy" className="w-full h-full object-cover object-center" />
               </div>
               <div className="work-card-overlay absolute inset-0 bg-linear-to-t from-[#081424]/72 to-transparent opacity-55 transition-opacity duration-300 group-hover:opacity-82"></div>
               <div className="work-card-meta relative z-10 transition-all duration-300">
@@ -556,7 +701,7 @@ function App() {
           <div className="wm-col equal">
             <div className="work-card group relative overflow-hidden bg-cream flex flex-col justify-end p-6 aspect-[4/3] max-md:min-h-[220px]">
               <div className="work-card-img absolute inset-0 flex items-center justify-center">
-                <img src={photo(0)} alt="Khushali Bochiwal" className="w-full h-full object-cover object-[center_top]" />
+                <img src={photo(0)} alt="Khushali Bochiwal" loading="lazy" className="w-full h-full object-cover object-[center_top]" />
               </div>
               <div className="work-card-overlay absolute inset-0 bg-linear-to-t from-[#081424]/72 to-transparent opacity-55 transition-opacity duration-300 group-hover:opacity-82"></div>
               <div className="work-card-meta relative z-10 transition-all duration-300">
@@ -699,19 +844,19 @@ function App() {
           {/* Set 1: clone */}
           {brandPlates.map((plate, i) => (
             <div key={`food-clone1-${i}`} className={`fg-item ${activeFoodIdx === i ? 'fg-active' : ''}`} data-idx={String(i)}>
-              <img src={plate.src} alt={plate.label} />
+              <img src={plate.src} alt={plate.label} loading="lazy" />
             </div>
           ))}
           {/* Set 2: original */}
           {brandPlates.map((plate, i) => (
             <div key={`food-orig-${i}`} className={`fg-item ${activeFoodIdx === i ? 'fg-active' : ''}`} data-idx={String(i)}>
-              <img src={plate.src} alt={plate.label} />
+              <img src={plate.src} alt={plate.label} loading="lazy" />
             </div>
           ))}
           {/* Set 3: clone */}
           {brandPlates.map((plate, i) => (
             <div key={`food-clone2-${i}`} className={`fg-item ${activeFoodIdx === i ? 'fg-active' : ''}`} data-idx={String(i)}>
-              <img src={plate.src} alt={plate.label} />
+              <img src={plate.src} alt={plate.label} loading="lazy" />
             </div>
           ))}
         </div>
