@@ -1,0 +1,39 @@
+/* About / polaroid styles */
+.ab2-polaroid {
+  flex: 1;
+  background: var(--ink);
+  padding: 10px 10px 40px;
+  box-shadow: 0 16px 48px rgba(10,30,50,0.38), 0 2px 8px rgba(10,30,50,0.14);
+  transform: rotate(var(--pol-rot)) translateY(36px);
+  opacity: 0;
+  transition: opacity 0.65s var(--pol-delay) ease, transform 0.65s var(--pol-delay) cubic-bezier(0.22,1,0.36,1);
+}
+
+.ab2-polaroid.ab2-vis {
+  opacity: 1;
+  transform: rotate(var(--pol-rot)) translateY(0);
+}
+
+.ab2-polaroid img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  display: block;
+}
+
+.ab2-pol-cap {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  text-align: center;
+  margin-top: 12px;
+}
+
+@media (max-width: 640px) {
+  .ab2-polaroid-row {
+    grid-template-columns: 1fr;
+  }
+}

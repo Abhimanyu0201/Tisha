@@ -1,0 +1,173 @@
+/* BagScene component styles */
+.ab2-bag-scene {
+  position: relative;
+  height: 600px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 20px;
+}
+
+.ab2-bag-origin {
+  position: relative;
+  z-index: 10;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.ab2-bag-img {
+  width: 270px;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 8px 24px rgba(10,30,50,0.28));
+  transition: transform 0.3s ease;
+}
+
+.ab2-bag-img:hover {
+  transform: rotate(-6deg) scale(1.06);
+}
+
+.ab2-bag-item {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.4);
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+  transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease;
+}
+
+.ab2-bag-item.popped {
+  transform: translateX(calc(-50% + var(--tx))) translateY(var(--ty)) rotate(var(--rot));
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.ab2-bag-card {
+  width: 88px;
+  height: 88px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 3px solid var(--ink);
+  box-shadow: 0 4px 18px rgba(10,30,50,0.22);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.ab2-bag-card:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 28px rgba(10,30,50,0.28);
+}
+
+.ab2-bag-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ab2-bag-lbl {
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.4s ease 0.3s;
+}
+
+.ab2-bag-item.popped .ab2-bag-lbl {
+  opacity: 1;
+}
+
+/* Brand plates */
+.ab2-food-circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--ink);
+  box-shadow: 0 4px 18px rgba(10,30,50,0.22);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.ab2-food-circle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 28px rgba(10,30,50,0.28);
+}
+
+.ab2-food-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ab2-food-circle--sm {
+  width: 78px;
+  height: 78px;
+}
+
+/* Profile Panel (Inside Bag) */
+.ab2-meas-panel {
+  background: white;
+  border: 1px solid var(--border);
+  padding: 14px 18px;
+  width: 185px;
+  box-shadow: 0 6px 24px rgba(10,30,50,0.12);
+  transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s ease;
+  cursor: pointer;
+}
+
+.ab2-meas-panel:hover {
+  transform: scale(1.08) translateY(-6px);
+  box-shadow: 0 14px 40px rgba(10,30,50,0.22);
+}
+
+.ab2-meas-panel-title {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.ab2-meas-panel-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.ab2-meas-panel-row:last-child {
+  border-bottom: none;
+}
+
+.ab2-meas-panel-key {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.ab2-meas-panel-val {
+  font-size: 12px;
+  color: var(--ink);
+}
+
+@media (max-width: 1024px) {
+  .ab2-bag-scene {
+    display: none;
+  }
+}

@@ -1,0 +1,153 @@
+/* Global styling, keyframes, scroll reveals and page structure */
+
+html {
+  scroll-behavior: smooth;
+  background: var(--warm-white);
+}
+
+body {
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+html,
+body {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* GPU Hardware Acceleration for performance */
+.hero-frame-col,
+.ab2-bag-item,
+.ab2-bag-origin,
+.hero-frame img {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Scroll-driven BG transition */
+#bg-img6203 {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0;
+  will-change: opacity;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* All page content above fixed bg */
+nav, .hero, .marquee-wrap, section, .quote-section, footer {
+  position: relative;
+  z-index: 2;
+}
+
+/* All sections semi-transparent so fixed bg shows through */
+section, .quote-section {
+  background: rgba(242, 248, 252, 0.78);
+}
+
+#contact {
+  background: rgba(218, 234, 246, 0.9);
+}
+
+.marquee-wrap {
+  background: var(--ink) !important;
+}
+
+footer {
+  background: var(--ink);
+}
+
+/* Scroll reveals */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.85s cubic-bezier(.22,1,.36,1), transform 0.85s cubic-bezier(.22,1,.36,1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 {
+  transition-delay: 0.1s;
+}
+
+.reveal-delay-2 {
+  transition-delay: 0.22s;
+}
+
+.reveal-delay-3 {
+  transition-delay: 0.34s;
+}
+
+/* Keyframes */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scrollDown {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes skyFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes modalPop {
+  from { transform: scale(0.92); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+
+/* Float animations classes */
+.stat-item-animated {
+  animation: skyFloat 5s ease-in-out infinite;
+}
+.stat-item-animated:nth-child(2) {
+  animation-delay: 0.8s;
+}
+.stat-item-animated:nth-child(3) {
+  animation-delay: 1.6s;
+}
+
+.scroll-line-animated {
+  animation: scrollDown 2.2s ease-in-out infinite;
+}
+
+/* Marquee inner speed */
+.marquee-inner {
+  display: inline-flex;
+  gap: 56px;
+  animation: marquee 20s linear infinite;
+}
+
+@media (max-width: 1024px) {
+  #bg-img6203 {
+    background-attachment: scroll;
+    background-position: center top;
+  }
+}

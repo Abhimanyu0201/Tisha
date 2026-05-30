@@ -1,0 +1,34 @@
+/* Work component styles */
+.work-masonry {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.wm-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.wm-col.wide {
+  flex: 1.38;
+}
+
+.wm-col.narrow {
+  flex: 1;
+}
+
+.wm-col.equal {
+  flex: 1;
+}
+
+.wm-placeholder {
+  background: linear-gradient(170deg,
+    #edeae3 0%,
+    #d6d1c6 34%,
+    #aaa49a 66%,
+    #878077 100%
+  );
+}
