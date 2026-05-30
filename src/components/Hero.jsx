@@ -100,7 +100,7 @@ const Hero = () => {
         {/* Scroll hint */}
         <div className="scroll-hint absolute bottom-9 left-[60px] flex flex-col items-center gap-2 font-mono text-[9px] tracking-[3px] text-muted uppercase opacity-0 animate-[fadeIn_1s_1.4s_forwards] z-10 max-sm:hidden">
           <span>Scroll</span>
-          <div className="scroll-line scroll-line-animated w-[1px] h-11 bg-linear-to-b from-accent to-transparent"></div>
+          <div className="scroll-line scroll-line-animated w-px h-11 bg-linear-to-b from-accent to-transparent"></div>
         </div>
       </div>
 

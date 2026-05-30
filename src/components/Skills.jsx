@@ -3,7 +3,7 @@ import React from 'react'
 const Skills = () => {
   return (
     <section id="skills" className="py-[100px] px-12 max-w-[1200px] mx-auto pb-10 max-md:py-[60px] max-md:px-6">
-      <div className="section-label font-mono text-[9px] tracking-[4px] text-accent uppercase mb-12 flex items-center gap-4 after:content-[''] after:flex-1 after:h-[1px] after:bg-border">Skills</div>
+      <div className="section-label font-mono text-[9px] tracking-[4px] text-accent uppercase mb-12 flex items-center gap-4 after:content-[''] after:flex-1 after:h-px after:bg-border">Skills</div>
       <h2 className="reveal font-serif text-[clamp(26px,2.8vw,40px)] font-normal leading-[1.2] mb-7">
         My expertise & <em className="italic text-accent">toolkit.</em>
       </h2>

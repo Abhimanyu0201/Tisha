@@ -4,6 +4,7 @@ import { photo, interestCards, brandPlates } from '../data/portfolioData'
 const BagScene = ({
   isScatterPopped,
   fireScatter,
+  closeScatter,
   setActiveCardIndex,
   setIsMeasOpen,
   openFoodGallery
@@ -18,12 +19,17 @@ const BagScene = ({
   return (
     <>
       {/* Desktop Bag Scene */}
-      <div className="ab2-bag-scene max-lg:hidden" id="ab2BagScene">
+      <div 
+        className="ab2-bag-scene max-lg:hidden" 
+        id="ab2BagScene"
+        onMouseLeave={closeScatter}
+      >
         {/* Center: actual bag image */}
         <div
           className="ab2-bag-origin"
           role="button"
           tabIndex={0}
+          onMouseEnter={fireScatter}
           onClick={fireScatter}
           onKeyDown={handleKeyDown(fireScatter)}
           aria-label="Reveal marketing toolkit items"

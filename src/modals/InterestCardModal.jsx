@@ -43,7 +43,7 @@ const InterestCardModal = ({ activeIndex, onClose, interestCards, onNav }) => {
               id="cardModalImg"
               src={interestCards[activeIndex].src}
               alt={interestCards[activeIndex].label}
-              className="transition-opacity duration-[180ms]"
+              className="transition-opacity duration-180"
             />
           )}
         </div>

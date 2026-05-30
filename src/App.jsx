@@ -1,4 +1,4 @@
-import React, { useState, useCallback, Suspense } from 'react'
+import React, { useState, useCallback, Suspense, useEffect } from 'react'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -7,6 +7,7 @@ import Work from './components/Work'
 import Services from './components/Services'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
+import BackToTop from './components/BackToTop'
 
 // Hooks
 import { useIntersectionObserver } from './hooks/useIntersectionObserver'
@@ -28,6 +29,13 @@ function App() {
   const [foodStartIdx, setFoodStartIdx] = useState(0)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
+  // Scroll to top on page reload
+  useEffect(() => {
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual'
+    }
+    window.scrollTo(0, 0)
+  }, [])
   // Scroll reveal Intersection Observer applied globally
   useIntersectionObserver({
     selector: '.reveal',
@@ -61,6 +69,10 @@ function App() {
     setIsScatterPopped(true)
   }, [])
 
+  const closeScatter = useCallback(() => {
+    setIsScatterPopped(false)
+  }, [])
+
   return (
     <>
       <Navbar
@@ -73,6 +85,7 @@ function App() {
       <About
         isScatterPopped={isScatterPopped}
         fireScatter={fireScatter}
+        closeScatter={closeScatter}
         setActiveCardIndex={setActiveCardIndex}
         setIsMeasOpen={setIsMeasOpen}
         openFoodGallery={openFoodGallery}
@@ -109,6 +122,8 @@ function App() {
           onNav={cardModalNav}
         />
       </Suspense>
+
+      <BackToTop />
     </>
   )
 }

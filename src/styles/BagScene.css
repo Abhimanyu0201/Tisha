@@ -19,6 +19,7 @@
   width: 270px;
   height: auto;
   display: block;
+  border-radius: 22px;
   filter: drop-shadow(0 8px 24px rgba(10,30,50,0.28));
   transition: transform 0.3s ease;
 }
@@ -45,6 +46,7 @@
   transform: translateX(calc(-50% + var(--tx))) translateY(var(--ty)) rotate(var(--rot));
   opacity: 1;
   pointer-events: auto;
+  z-index: 20;
 }
 
 .ab2-bag-card {

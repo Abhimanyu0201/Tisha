@@ -6,6 +6,7 @@ import BagScene from './BagScene'
 const About = ({
   isScatterPopped,
   fireScatter,
+  closeScatter,
   setActiveCardIndex,
   setIsMeasOpen,
   openFoodGallery
@@ -20,7 +21,7 @@ const About = ({
 
   return (
     <section id="about" className="about-wrapper py-[100px] px-12 max-w-[1200px] mx-auto pb-10 max-md:py-[60px] max-md:px-6">
-      <div className="section-label font-mono text-[9px] tracking-[4px] text-accent uppercase mb-12 flex items-center gap-4 after:content-[''] after:flex-1 after:h-[1px] after:bg-border">About</div>
+      <div className="section-label font-mono text-[9px] tracking-[4px] text-accent uppercase mb-12 flex items-center gap-4 after:content-[''] after:flex-1 after:h-px after:bg-border">About</div>
 
       <div id="about-b">
         {/* Row 1: Statement + side photo */}
@@ -29,7 +30,7 @@ const About = ({
             <h2 className="ab2-headline font-serif text-[clamp(40px,5.8vw,82px)] max-md:text-[clamp(26px,7.5vw,44px)] font-normal leading-none tracking-[-1.5px] max-md:tracking-[-0.5px] mb-6">
               I build brands that <em className="italic text-accent">perform.</em>
             </h2>
-            <p className="ab2-lead text-[14px] max-md:text-[13px] leading-[2] max-md:leading-[1.9] text-ink-soft max-w-[480px]">
+            <p className="ab2-lead text-[14px] max-md:text-[13px] leading-loose max-md:leading-[1.9] text-ink-soft max-w-[480px]">
               Digital marketer with hands-on experience managing luxury and automotive brands including Skoda and Nykaa Luxe.
               Skilled in high-performance social media campaigns, content strategy, and paid advertising — with a strong focus on engagement and measurable outcomes.
             </p>
@@ -41,11 +42,12 @@ const About = ({
 
         {/* Row 2: What's in my world — 3-zone bag scene */}
         <div className="ab2-bag-section mb-24 max-md:mb-12">
-          <div className="ab2-section-tag font-mono text-[9px] tracking-[4px] text-accent uppercase flex items-center gap-4 mb-[56px] after:content-[''] after:flex-1 after:h-[1px] after:bg-border">BRANDS & PROFILE</div>
+          <div className="ab2-section-tag font-mono text-[9px] tracking-[4px] text-accent uppercase flex items-center gap-4 mb-[56px] after:content-[''] after:flex-1 after:h-px after:bg-border">BRANDS & PROFILE</div>
           
           <BagScene
             isScatterPopped={isScatterPopped}
             fireScatter={fireScatter}
+            closeScatter={closeScatter}
             setActiveCardIndex={setActiveCardIndex}
             setIsMeasOpen={setIsMeasOpen}
             openFoodGallery={openFoodGallery}
@@ -54,7 +56,7 @@ const About = ({
 
         {/* Row 4: Polaroid gallery */}
         <div className="ab2-polaroid-section mb-5">
-          <div className="ab2-section-tag font-mono text-[9px] tracking-[4px] text-accent uppercase flex items-center gap-4 mb-11 after:content-[''] after:flex-1 after:h-[1px] after:bg-border">CAMPAIGN HIGHLIGHTS</div>
+          <div className="ab2-section-tag font-mono text-[9px] tracking-[4px] text-accent uppercase flex items-center gap-4 mb-11 after:content-[''] after:flex-1 after:h-px after:bg-border">CAMPAIGN HIGHLIGHTS</div>
           <div className="ab2-polaroid-row flex gap-6 items-start max-md:grid max-md:grid-cols-2 max-md:gap-[14px]">
             {polaroids.map((p, i) => (
               <div
